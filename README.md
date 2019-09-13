@@ -1,6 +1,5 @@
 # nlp-lab1
-## LUCAS CHEISTWER
-
+## LUCAS CHEISTWER :+1:
 1. Cuál	es	el	número	de	tokens	en	Moby	Dick?  
 MD_cant_tokens = len(moby_dick_tokens_nonpunct)  
 MD_cant_tokens  
@@ -21,8 +20,8 @@ wjs_type_token_ratio = wjs_cant_types / wjs_cant_tokens
 wjs_type_token_ratio  
 0.129748424801388  
 
-5. Cuál	de	los	dos	tiene	más	diversidad	léxica?	
+5. Cuál	de	los	dos	tiene	más	diversidad	léxica?	  
 El Wall Street Journal tiene mayor diversidad léxica ya que su ratio es mayor que el de Moby Dick.  
 
-6.	Puede pensar una razón por por la cual ese corpus es más diverso que el otro?
+6. Puede pensar una razón por por la cual ese corpus es más diverso que el otro?  
 El Wall Street Journal tiene una mayor diversidad léxica ya que al ser un diario, seguramente tenga muchas secciones de diferentes topicos cada una. Esto quiere decir que hay una mayor cantidad de palabras diferentes, en relacion a las palabras totales que hay en el corpus. Moby Dick, al ser una novela, tiene menor diversidad de topicos y por ende de palabras diferentes en relacion a las totales.
