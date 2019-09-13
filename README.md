@@ -25,3 +25,19 @@ El Wall Street Journal tiene mayor diversidad léxica ya que su ratio es mayor q
 
 6. Puede pensar una razón por por la cual ese corpus es más diverso que el otro?  
 El Wall Street Journal tiene una mayor diversidad léxica ya que al ser un diario, seguramente tenga muchas secciones de diferentes topicos cada una. Esto quiere decir que hay una mayor cantidad de palabras diferentes, en relacion a las palabras totales que hay en el corpus. Moby Dick, al ser una novela, tiene menor diversidad de topicos y por ende de palabras diferentes en relacion a las totales.
+
+7.	Cual	es el	“Maximum	Likelikhood	Estimate	(MLE)” de	la	palabra	“whale” (ballena)	en	Moby	Dick?
+\>\>\> cant_Whale_md = text1.count("whale")
+\>\>\> cant_whale_md
+906
+\>\>\> prob_whale_md = (cant_whale_md / MD_cant_types) * 100
+\>\>\> prob_whale_md
+5.285880980163361
+
+8.	Cuál	es	el MLE	de	“whale”	en	el	corpus	de	WSJ?
+\>\>\> cant_whale_wjs = text7.count("whale")
+\>\>\> cant_whale_wjs
+0
+\>\>\> prob_whale_wjs = (cant_whale_wjs / wjs_cant_types) * 100
+\>\>\> prob_whale_wjs
+0.0
