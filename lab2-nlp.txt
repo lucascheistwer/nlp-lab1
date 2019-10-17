@@ -1,0 +1,98 @@
+%%%%%%%%%%%%
+%%%% 3 %%%%%
+%%%%%%%%%%%%
+Categorias de tipo Noun(Penn Treebank tagset):
+
+NN - Sustantivos comunes en singular, que sirven para identificar 
+en forma general a las personas, animales y objetos.
+
+NNP - Sustantivos propios en singular, aquellas que denominan en forma concreta
+una entidad. Nombres, lugares, apodos.
+
+NNPS - Son NNP pero en plural.
+
+NNS - Son NN pero en plural.
+
+%%%%%%%%%%%%
+%%%% 5 %%%%%
+%%%%%%%%%%%%
+Cuál es el tamaño del Brown corpus?
+>>> len(brown.tagged_words())
+1161192
+
+>>> cantNN = brown.tagged_words().count(race1)
+>>> cantNN
+94
+>>> cantVB = brown.tagged_words().count(race2)
+>>> cantVB
+4
+
+Claramente su uso mas frecuente es como sustantivo. 
+La palabra race como verbo aparece unicamente 4 veces.
+
+%%%%%%%%%%%%
+%%%% 6 %%%%%
+%%%%%%%%%%%%
+El POS tagger HMM que se detalla en las diapositivas de la clase, usa dos fuentes de
+información. Una es la probabilidad de una palabra dado un tag particular, p(wi|ti). Cuál es la
+otra fuente de información que te ayuda a tagear una oración?
+
+La otra fuente de informacion es lo que se dice el Prior. Esta es la probabilidad
+de una secuencia de n tags. No depende de la oracion, por lo tanto determina
+cuan probable es una secuencia de tags en particular.
+
+
+Antes de ejecutar este código, qué TAG te parece que le será asignado a 
+la palabra “race” en nuestro modelo?
+
+Imagino que al no tener en cuenta el contexto, a la palabra race se le
+asignara el TAG NN, ya que es el mas probable.
+
+Y, efectivamente:
+>>> unigram_tagger.tag(S_tok)
+[('The', 'AT'), ('Secretariat', 'NN-TL'), ('is', 'BEZ'), 
+('expected', 'VBN'), ('to', 'TO'), ('race', 'NN'), ('tomorrow', 'NR')]
+
+Luego, con el modelo HMM al tener en cuenta el contexto, le asignó
+el TAG adecuado a "race":
+>>> hmm_tagger.tag(S_tok)
+[('The', 'AT'), ('Secretariat', 'NN-TL'), ('is', 'BEZ'), 
+('expected', 'VBN'), ('to', 'TO'), ('race', 'VB'), ('tomorrow', 'NR')]
+
+Primer intento fallido:
+>>> S2 = "I would love to party next weekend"
+>>> S2_tok = word_tokenize(S2)
+>>> unigram_tagger.tag(S2_tok)
+[('I', 'PPSS'), ('would', 'MD'), ('love', 'VB'), ('to', 'TO'), 
+('party', 'NN'), ('next', 'AP'), ('weekend', 'NN')]
+>>> hmm_tagger.tag(S2_tok)
+[('I', 'PPSS'), ('would', 'MD'), ('love', 'VB'), ('to', 'IN'), 
+('party', 'NN'), ('next', 'AP'), ('weekend', 'NN')]
+
+La palabra party es un verbo y el HMM no la tageó como tal.
+
+El segundo intento funcionó:
+>>> S3 = "I will have to object to that decision"
+>>> S3_tok = word_tokenize(S3)
+>>> unigram_tagger.tag(S3_tok)
+[('I', 'PPSS'), ('will', 'MD'), ('have', 'HV'), ('to', 'TO'), 
+('object', 'NN'), ('to', 'TO'), ('that', 'CS'), ('decision', 'NN')]
+>>> hmm_tagger.tag(S3_tok)
+[('I', 'PPSS'), ('will', 'MD'), ('have', 'HV'), ('to', 'TO'), 
+('object', 'VB'), ('to', 'IN'), ('that', 'DT'), ('decision', 'NN')]
+
+El unigram tomó la palabra "object" como sustantivo erroneamente.
+El hmm lo tageo correcamente como verbo.
+
+
+Juvenile: Adjetivo
+Court: Sustantivo
+Try: Verbo
+Shooting: Verbo
+Defendant: Verbo
+
+>>> title = "Juvenile Court to Try Shooting Defendant"
+>>> title_tok = word_tokenize(title)
+>>> hmm_tagger.tag(title_tok)
+[('Juvenile', 'JJ-TL'), ('Court', 'NN-TL'), ('to', 'IN'), ('Try', 'AT'), ('Shooting', 'AT'), ('Defendant', 'AT')]
+>>>
